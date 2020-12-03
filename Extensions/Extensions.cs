@@ -20,6 +20,29 @@ namespace Extensions
             return dataList;
         }
 
+        public static void WriteData(this string filepath, string newFilePath)
+        {
+            List<object> dataList = new List<object>();
+            using (StreamReader file = new StreamReader(filepath))
+            {
+                using (StreamWriter newFile = new StreamWriter(newFilePath))
+                {
+                    string line;
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        dataList.Add(line);
+                        for (int i = 0; i < 1000; i++)
+                        {
+                            newFile.Write(line);
+                            
+                        }
+                        newFile.WriteLine();
+                    }
+                }  
+            }
+            //return dataList;
+        }
+
         public static int[] ParseToIntArray(this List<object> dataList)
         {
             List<int> numbers = new List<int>();

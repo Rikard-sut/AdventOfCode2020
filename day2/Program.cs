@@ -17,14 +17,29 @@ namespace day2
 
             var numberOfValidPasswords = FindValidPasswordCount(passwordsWithRules);
 
+            var testdata = new PassWordMatch
+            {
+                ActualPassword = "baabaa",
+                Letter = 'a',
+                MinLength = 1,
+                MaxLength = 5
+            };
+            var testlist = new List<PassWordMatch>() { testdata };
+
+            var testresult = FindValidPassWordCoundPtTwo(testlist);
+
+            var numberOfValidPasswordsPtTwo = FindValidPassWordCoundPtTwo(passwordsWithRules);
+
             Console.WriteLine(numberOfValidPasswords);
+            Console.WriteLine(numberOfValidPasswordsPtTwo);
+            Console.WriteLine(testresult);
             Console.ReadKey();
         }
 
         public static List<PassWordMatch> GetPasswordObjects(IEnumerable<string> dataList)
         {
             List<PassWordMatch> passwordsAndRules = new List<PassWordMatch>();
-            foreach(string item in dataList)
+            foreach (string item in dataList)
             {
                 var passwordMatch = new PassWordMatch();
 
@@ -34,7 +49,7 @@ namespace day2
                 string passwordRules = ruleAndPw[0];
 
                 string[] ruleAndLetter = passwordRules.Split(' ');
-                passwordMatch.Letter = ruleAndLetter[1];
+                passwordMatch.Letter = char.Parse(ruleAndLetter[1]);
 
                 string rules = ruleAndLetter[0];
 
@@ -50,12 +65,32 @@ namespace day2
         public static int FindValidPasswordCount(IEnumerable<PassWordMatch> passwords)
         {
             int i = 0;
-            foreach(var password in passwords)
+            foreach (var password in passwords)
             {
-                var countOfLetter = password.ActualPassword.Count(x => x == char.Parse(password.Letter));
+                var countOfLetter = password.ActualPassword.Count(x => x == password.Letter);
 
                 if (countOfLetter >= password.MinLength && countOfLetter <= password.MaxLength)
                     i++;
+            }
+            return i;
+        }
+
+        public static int FindValidPassWordCoundPtTwo(IEnumerable<PassWordMatch> passwords)
+        {
+            int i = 0;
+            foreach (var password in passwords)
+            {
+                string trimmedPw = password.ActualPassword.Trim();
+                char[] pwAsArray = trimmedPw.ToCharArray();
+
+                var firstActualLetter = pwAsArray[password.MinLength - 1];
+                var secondActualLetter = pwAsArray[password.MaxLength - 1];
+
+                if ((firstActualLetter == password.Letter && secondActualLetter != password.Letter)
+                    || (secondActualLetter == password.Letter && firstActualLetter != password.Letter))
+                {
+                    i++;
+                }
             }
             return i;
         }
@@ -65,7 +100,7 @@ namespace day2
     {
         public int MinLength { get; set; }
         public int MaxLength { get; set; }
-        public string Letter { get; set; }
+        public char Letter { get; set; }
         public string ActualPassword { get; set; }
     }
 }

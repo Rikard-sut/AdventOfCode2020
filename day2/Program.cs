@@ -60,6 +60,7 @@ namespace day2
             return i;
         }
     }
+
     public class PassWordMatch
     {
         public int MinLength { get; set; }

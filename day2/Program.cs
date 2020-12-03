@@ -1,6 +1,7 @@
 ﻿using Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace day2
 {
@@ -14,6 +15,10 @@ namespace day2
 
             var passwordsWithRules = GetPasswordObjects(parsedData);
 
+            var numberOfValidPasswords = FindValidPasswordCount(passwordsWithRules);
+
+            Console.WriteLine(numberOfValidPasswords);
+            Console.ReadKey();
         }
 
         public static List<PassWordMatch> GetPasswordObjects(IEnumerable<string> dataList)
@@ -40,6 +45,19 @@ namespace day2
                 passwordsAndRules.Add(passwordMatch);
             }
             return passwordsAndRules;
+        }
+
+        public static int FindValidPasswordCount(IEnumerable<PassWordMatch> passwords)
+        {
+            int i = 0;
+            foreach(var password in passwords)
+            {
+                var countOfLetter = password.ActualPassword.Count(x => x == char.Parse(password.Letter));
+
+                if (countOfLetter >= password.MinLength && countOfLetter <= password.MaxLength)
+                    i++;
+            }
+            return i;
         }
     }
     public class PassWordMatch

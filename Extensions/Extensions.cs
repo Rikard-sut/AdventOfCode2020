@@ -34,11 +34,11 @@ namespace Extensions
                         for (int i = 0; i < 1000; i++)
                         {
                             newFile.Write(line);
-                            
+
                         }
                         newFile.WriteLine();
                     }
-                }  
+                }
             }
             //return dataList;
         }
@@ -47,7 +47,7 @@ namespace Extensions
         {
             List<int> numbers = new List<int>();
 
-            foreach(var item in dataList)
+            foreach (var item in dataList)
             {
                 numbers.Add(Int32.Parse(item.ToString()));
             }

@@ -116,14 +116,6 @@ namespace Day4
 
         public static int FindCountOfValidPassports(List<PassPort> passports)
         {
-            // byr(Birth Year)
-            //iyr(Issue Year)
-            //eyr(Expiration Year)
-            //hgt(Height)
-            //hcl(Hair Color)
-            //ecl(Eye Color)
-            //pid(Passport ID) NOT REQUIRED
-
             int validPassportCount = 0;
             foreach (var passport in passports)
             {

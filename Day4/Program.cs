@@ -111,10 +111,7 @@ namespace Day4
             if (Regex.IsMatch(pid, @"^\d{9}$"))
                 pidValidation = true;
 
-            if (byrValidation && iyrValidation && eyrValidation && hgtValidation && hclValidation && eclValidation && pidValidation)
-                return true;
-            else
-                return false;
+            return byrValidation && iyrValidation && eyrValidation && hgtValidation && hclValidation && eclValidation && pidValidation;
         }
 
         public static int FindCountOfValidPassports(List<PassPort> passports)

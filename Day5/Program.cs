@@ -12,7 +12,9 @@ namespace Day5
             var data = filepath.GetData();
             var seatIds = FindSeatIds(data);
             int highestId = FindHighestId(seatIds);
+            int mySeatId = FindEmptySeatId(seatIds);
             Console.WriteLine(highestId);
+            Console.WriteLine(mySeatId);
             Console.ReadKey();
         }
 
@@ -83,7 +85,6 @@ namespace Day5
         public static int[] CopyValues(int min, int max, int[] arrayToCopy)
         {
             var list = new List<int>();
-            var newArrary = new int[arrayToCopy.Length / 2];
 
             for (int i = 0; i < arrayToCopy.Length; i++)
             {
@@ -107,6 +108,17 @@ namespace Day5
                     highestid = currentId;
             }
             return highestid;
+        }
+
+        public static int FindEmptySeatId(List<int> seatIds)
+        {
+            seatIds.Sort();
+            for (int i = 0; i < seatIds.Count; i++)
+            {
+                if (seatIds[i] + 1 != seatIds[i + 1])
+                    return seatIds[i + 1] - 1;
+            }
+            return 0;
         }
     }
 }

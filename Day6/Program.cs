@@ -53,75 +53,31 @@ namespace Day6
         public static List<int> FindAmountOfYesAnswersPerGroupPt2(List<object> answerstrings)
         {
             List<int> answers = new List<int>();
-            List<string> currentgroup = new List<string>();
-            int yescount = 0;
             int countOfppl = 0;
-            string group = "";
+            string groupAnswer = "";
 
+            int yescount;
             foreach (string anwerstring in answerstrings)
             {
-
                 if (!string.IsNullOrEmpty(anwerstring))
                 {
-                    group += anwerstring;
+                    groupAnswer += anwerstring;
                     countOfppl++;
                 }
                 else
                 {
-                    //MOVE ALL OF THIS TO SEPARATE METHOD!! START
-                    yescount = 0;
-
-                    while (group.Length > 0 && countOfppl > 1)
-                    {
-                        int lettercount = 0;
-                        for (int j = 0; j < group.Length; j++)
-                        {
-                            if (group[0] == group[j])
-                            {
-                                lettercount++;
-                                if (lettercount == countOfppl)
-                                    yescount++;
-                            } 
-                        }
-                        group = group.Replace(group[0].ToString(), string.Empty);
-                    }
-                    if(countOfppl == 1)
-                    {
-                        yescount = group.Length;
-                    }
+                    yescount = YesCountOfEveryPersonInGrp(countOfppl, groupAnswer);
                     answers.Add(yescount);
                     countOfppl = 0;
-                    group = "";
-                    //MOVE ALL OF THIS TO SEPARATE METHOD!! START
+                    groupAnswer = "";
                 }
             }
-            //MOVE ALL OF THIS TO SEPARATE METHOD!! START
-            yescount = 0;
-
-            while (group.Length > 0 && countOfppl > 1)
-            {
-                int lettercount = 0;
-                for (int j = 0; j < group.Length; j++)
-                {
-                    if (group[0] == group[j])
-                    {
-                        lettercount++;
-                        if (lettercount == countOfppl)
-                            yescount++;
-                    }
-                }
-                group = group.Replace(group[0].ToString(), string.Empty);
-            }
-            if (countOfppl == 1)
-            {
-                yescount = group.Length;
-            }
-            //MOVE ALL OF THIS TO SEPARATE METHOD!! START
+            yescount = YesCountOfEveryPersonInGrp(countOfppl, groupAnswer);
             answers.Add(yescount);
             return answers;
         }
 
-        public static int FindYesCount(int countOfppl, string group)
+        public static int YesCountOfEveryPersonInGrp(int countOfppl, string group)
         {
             int yescount = 0;
 

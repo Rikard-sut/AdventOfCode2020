@@ -81,7 +81,7 @@ namespace Day6
         {
             int yescount = 0;
 
-            while (group.Length > 0 && countOfppl > 1)
+            while (group.Length > 0)
             {
                 int lettercount = 0;
                 for (int j = 0; j < group.Length; j++)
@@ -94,10 +94,6 @@ namespace Day6
                     }
                 }
                 group = group.Replace(group[0].ToString(), string.Empty);
-            }
-            if (countOfppl == 1)
-            {
-                yescount = group.Length;
             }
             return yescount;
         }
